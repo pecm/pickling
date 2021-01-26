@@ -1,0 +1,53 @@
+name: PHPUnit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php_version }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php_version: ['7.4', '8.0', '8.1']
+        composer_flags: ['--ignore-platform-reqs', '']
+        experimental: [false]
+        include:
+          - php_version: '8.1'
+            experimental: true
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup PHP with PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php_version }}
+        tools: composer:v2
+        coverage: pcov
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Cache Composer packages
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-php-${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-php-${{ matrix.php_version }}-
+
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+      run: composer install ${{ matrix.composer_flags }} --prefer-dist --no-progress --optimize-autoloader --no-interaction
+
+    - name: Run test suite
+      run: composer run-script test
