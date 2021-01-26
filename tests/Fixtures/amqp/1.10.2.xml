@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/amqp">amqp</p>
+ <c>pecl.php.net</c>
+ <v>1.10.2</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>lstrojny</m>
+ <s>Communicate with any AMQP compliant server</s>
+ <d>This extension can communicate with any AMQP spec 0-9-1 compatible server, such as RabbitMQ, OpenAMQP and Qpid, giving you the ability to create and delete exchanges and queues, as well as publish to any exchange and consume from any queue.</d>
+ <da>2020-04-05 15:41:28</da>
+ <n>- Windows build: avoid variable lengths arrays (Christoph M. Becker) (https://github.com/pdezwart/php-amqp/issues/368)
+
+For a complete list of changes see:
+https://github.com/pdezwart/php-amqp/compare/v1.10.1...v1.10.2</n>
+ <f>107350</f>
+ <g>https://pecl.php.net/get/amqp-1.10.2</g>
+ <x xlink:href="package.1.10.2.xml"/>
+</r>

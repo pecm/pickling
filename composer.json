@@ -1,0 +1,62 @@
+{
+  "name": "pecm/pickling",
+  "description": "A REST API Client for PECL and PEAR",
+  "type": "library",
+  "license": "mit",
+  "keywords": ["pecl", "pear", "rest api", "client"],
+  "authors": [
+    {
+      "name": "Flavio Heleno",
+      "email": "flaviohbatista@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pickling\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pickling\\Test\\": "tests"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "php": ">=7.4",
+    "php-http/discovery": "^1.13",
+    "psr/http-client": "^1.0",
+    "psr/http-client-implementation": "^1.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-factory-implementation": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/http-message-implementation": "^1.0",
+    "ramsey/collection": "^1.1"
+  },
+  "require-dev": {
+    "nyholm/psr7": "^1.3",
+    "php-http/mock-client": "^1.4",
+    "php-http/socket-client": "^2.1",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "phpstan/phpstan": "^0.12.58",
+    "phpunit/phpunit": "^9.5",
+    "psy/psysh": "^0.10.5",
+    "roave/security-advisories": "dev-latest",
+    "squizlabs/php_codesniffer": "^3.5",
+    "vimeo/psalm": "^4.3"
+  },
+  "suggest": {
+    "nyholm/psr7": "A fast PHP7 implementation of PSR-7",
+    "php-http/socket-client": "Socket client for PHP-HTTP"
+  },
+  "scripts": {
+    "taint": "vendor/bin/psalm --taint-analysis",
+    "check": "vendor/bin/phpstan analyse --level=8 --autoload-file=vendor/autoload.php src/ tests/",
+    "lint": [
+      "vendor/bin/parallel-lint --exclude vendor .",
+      "vendor/bin/phpcs --standard=ruleset.xml src/ tests/"
+    ],
+    "test": "vendor/bin/phpunit ./tests/ --coverage-html=./report/coverage/ --whitelist=./src/ --testdox-html=./report/testdox.html --disallow-test-output --process-isolation"
+  }
+}

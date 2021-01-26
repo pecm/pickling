@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mongodb">mongodb</p>
+ <c>pecl.php.net</c>
+ <v>1.9.0</v>
+ <st>stable</st>
+ <l>Apache License</l>
+ <m>alcaeus</m>
+ <s>MongoDB driver for PHP</s>
+ <d>The purpose of this driver is to provide exceptionally thin glue between MongoDB
+and PHP, implementing only fundamental and performance-critical components
+necessary to build a fully-functional MongoDB driver.</d>
+ <da>2020-11-25 12:18:18</da>
+ <n>** Epic
+    * [PHPC-1631] - Support PHP 8
+
+** New Feature
+    * [PHPC-1691] - Iterator implementation for MongoDB\Driver\Cursor
+
+** Bug
+    * [PHPC-1167] - executeBulkWrite() may leave dangling session pointer on BulkWrite object
+    * [PHPC-1693] - Fix MongoDB\BSON\Regex::__construct() arginfo
+    * [PHPC-1697] - Fix MongoDB\Driver\Command::__construct() arginfo
+    * [PHPC-1698] - prep_tagsets may leak in convert_to_object
+    * [PHPC-1700] - prep_tagsets may leak if calling method errors
+
+** Improvement
+    * [PHPC-479] - Print mongoc and libbson versions during configure
+    * [PHPC-1699] - Ensure all zpp errors are proxied by InvalidArgumentException
+    * [PHPC-1704] - Improve checks for built-in PHP extensions for Windows builds
+    * [PHPC-1706] - AIX platforms shouldn't try linking with libresolv
+
+** Task
+    * [PHPC-169] - Test read and write concern inheritance
+    * [PHPC-1652] - Add timestamp test with high-order bit set that's not 2^32-1
+    * [PHPC-1653] - Resync BSON corpus spec tests
+    * [PHPC-1655] - Add a bson corpus test with invalid type for $code when $scope is also present
+    * [PHPC-1660] - Always refer to explicit version in PECL example for non-stable release notes
+    * [PHPC-1689] - Allow driver to compile with PHP 8
+    * [PHPC-1692] - Test suite fixes for PHP 8
+    * [PHPC-1694] - Add PHP 8 nightly to Travis CI build matrix
+    * [PHPC-1695] - Add PHP 8 to AppVeyor build matrix</n>
+ <f>1300408</f>
+ <g>https://pecl.php.net/get/mongodb-1.9.0</g>
+ <x xlink:href="package.1.9.0.xml"/>
+</r>

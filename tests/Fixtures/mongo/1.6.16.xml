@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mongo">mongo</p>
+ <c>pecl.php.net</c>
+ <v>1.6.16</v>
+ <st>stable</st>
+ <l>Apache License</l>
+ <m>jmikola</m>
+ <s>MongoDB database driver</s>
+ <d>This package provides an interface for communicating with the MongoDB database in PHP.</d>
+ <da>2017-09-05 13:42:06</da>
+ <n>** Bug
+    * [PHP-1529] - undefined symbol: php_mongo_asn1_time_to_time_t</n>
+ <f>210341</f>
+ <g>http://pecl.php.net/get/mongo-1.6.16</g>
+ <x xlink:href="package.1.6.16.xml"/>
+</r>
