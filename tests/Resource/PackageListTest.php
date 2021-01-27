@@ -13,9 +13,27 @@ final class PackageListTest extends TestCase {
     $this->assertNotEmpty($content);
     $xml = new SimpleXMLElement($content);
 
-    $releaseList = new PackageList($xml);
-    $this->assertSame('pecl.php.net', $releaseList->getChannel());
-    $this->assertSame(3, count($releaseList));
-    $this->assertEquals(['ahocorasick', 'amfext', 'amqp'], iterator_to_array($releaseList));
+    $packageList = new PackageList($xml);
+    $this->assertSame('pecl.php.net', $packageList->getChannel());
+
+    // test package list countable
+    $this->assertSame(3, count($packageList));
+
+    // test package list iterator
+    $this->assertEquals(['ahocorasick', 'amfext', 'amqp'], iterator_to_array($packageList));
+
+    // test package list array access
+    $this->assertSame('ahocorasick', $packageList[0]);
+    $this->assertTrue(isset($packageList[2]));
+    $this->assertFalse(isset($packageList[3]));
+
+    // test package list array access immutability
+    unset($packageList[0]);
+    $packageList[1] = 'php';
+    $this->assertSame('ahocorasick', $packageList[0]);
+    $this->assertSame('amfext', $packageList[1]);
+    $this->assertTrue(isset($packageList[0]));
+    $this->assertTrue(isset($packageList[1]));
+    $this->assertTrue(isset($packageList[2]));
   }
 }

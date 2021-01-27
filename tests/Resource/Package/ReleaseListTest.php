@@ -19,8 +19,27 @@ final class ReleaseListTest extends TestCase {
     $releaseList = new ReleaseList($xml);
     $this->assertSame($properties[0], $releaseList->getPackageName());
     $this->assertSame($properties[1], $releaseList->getChannel());
+
+    // test release list countable
     $this->assertSame($properties[2], count($releaseList));
+
+    // test release list iterator
     $this->assertEquals($properties[3], iterator_to_array($releaseList));
+
+    // test release list array access
+    $this->assertEquals($properties[3][0], $releaseList[0]);
+    $this->assertTrue(isset($properties[3][0]));
+    $this->assertTrue(isset($releaseList[count($releaseList) - 1]));
+    $this->assertFalse(isset($releaseList[count($releaseList)]));
+
+    // test release list array access immutability
+    unset($releaseList[0]);
+    $releaseList[1] = '';
+    $this->assertEquals($properties[3][0], $releaseList[0]);
+    $this->assertEquals($properties[3][1], $releaseList[1]);
+    $this->assertTrue(isset($releaseList[0]));
+    $this->assertTrue(isset($releaseList[count($releaseList) - 1]));
+    $this->assertFalse(isset($releaseList[count($releaseList)]));
   }
 
   public function propertyGettersDataProvider(): array {

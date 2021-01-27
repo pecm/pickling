@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Pickling\Resource\Package;
 
+use ArrayAccess;
 use Countable;
 use Iterator;
 use Pickling\Resource\Package\Release\Version;
@@ -12,7 +13,7 @@ use SimpleXMLElement;
  * @link https://pecl.php.net/rest/r/:packageName/allreleases.xml
  * @link http://pear.php.net/dtd/rest.allreleases.xsd
  */
-final class ReleaseList implements Countable, Iterator {
+final class ReleaseList implements ArrayAccess, Countable, Iterator {
   private string $packageName;
   private string $channel;
   /**
@@ -35,6 +36,22 @@ final class ReleaseList implements Countable, Iterator {
 
   public function getChannel(): string {
     return $this->channel;
+  }
+
+  public function offsetExists(mixed $offset): bool {
+    return isset($this->list[$offset]);
+  }
+
+  public function offsetGet(mixed $offset): ?Version {
+    return isset($this->list[$offset]) ? $this->list[$offset] : null;
+  }
+
+  public function offsetSet(mixed $offset, mixed $value): void {
+    // no-op as the package list must be immutable
+  }
+
+  public function offsetUnset(mixed $offset): void {
+    // no-op as the package list must be immutable
   }
 
   public function count(): int {

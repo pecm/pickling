@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Pickling\Resource;
 
+use ArrayAccess;
 use Countable;
 use Iterator;
 use SimpleXMLElement;
@@ -10,7 +11,7 @@ use SimpleXMLElement;
 /**
  * @link http://pear.php.net/dtd/rest.allpackages.xsd
  */
-final class PackageList implements Countable, Iterator {
+final class PackageList implements ArrayAccess, Countable, Iterator {
   private string $channel;
   /**
    * @var string[]
@@ -19,6 +20,7 @@ final class PackageList implements Countable, Iterator {
 
   public function __construct(SimpleXMLElement $xml) {
     $this->channel = trim((string)$xml->c);
+
     foreach ($xml->p as $package) {
       $this->list[] = trim((string)$package);
     }
@@ -26,6 +28,22 @@ final class PackageList implements Countable, Iterator {
 
   public function getChannel(): string {
     return $this->channel;
+  }
+
+  public function offsetExists(mixed $offset): bool {
+    return isset($this->list[$offset]);
+  }
+
+  public function offsetGet(mixed $offset): ?string {
+    return isset($this->list[$offset]) ? $this->list[$offset] : null;
+  }
+
+  public function offsetSet(mixed $offset, mixed $value): void {
+    // no-op as the package list must be immutable
+  }
+
+  public function offsetUnset(mixed $offset): void {
+    // no-op as the package list must be immutable
   }
 
   public function count(): int {

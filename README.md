@@ -28,6 +28,8 @@ composer require php-http/socket-client nyholm/psr7
 
 ## Usage
 
+More usage examples beyond the simple ones below can be found on the [examples/](examples/) folder.
+
 **Factory Instantiation**
 
 ```php
