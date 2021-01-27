@@ -6,8 +6,8 @@ namespace Pickling;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Pickling\Channel\ChannelInterface;
-use Pickling\Channel\Pear;
-use Pickling\Channel\Pecl;
+use Pickling\Channel\PearChannel;
+use Pickling\Channel\PeclChannel;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -32,7 +32,7 @@ final class Factory {
     StreamFactoryInterface $streamFactory = null
   ): Client {
     return self::create(
-      new Pear(),
+      new PearChannel(),
       $httpClient,
       $requestFactory,
       $streamFactory
@@ -45,7 +45,7 @@ final class Factory {
     StreamFactoryInterface $streamFactory = null
   ): Client {
     return self::create(
-      new Pecl(),
+      new PeclChannel(),
       $httpClient,
       $requestFactory,
       $streamFactory

@@ -7,7 +7,7 @@ use Pickling\Channel\ChannelInterface;
 use Pickling\Resource\Package\Info;
 use Pickling\Resource\Package\Release;
 use Pickling\Resource\Package\ReleaseList;
-use Pickling\Traits\XmlParser;
+use Pickling\Traits\HttpRequest;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -15,24 +15,12 @@ use RuntimeException;
 use SimpleXMLElement;
 
 final class Package {
-  use XmlParser;
+  use HttpRequest;
 
   /**
    * @var \Pickling\Channel\ChannelInterface
    */
   private ChannelInterface $channel;
-  /**
-   * @var \Psr\Http\Client\ClientInterface
-   */
-  private ClientInterface $httpClient;
-  /**
-   * @var \Psr\Http\Message\RequestFactoryInterface
-   */
-  private RequestFactoryInterface $requestFactory;
-  /**
-   * @var \Psr\Http\Message\StreamFactoryInterface
-   */
-  private StreamFactoryInterface $streamFactory;
 
   private string $packageName;
 
@@ -61,7 +49,7 @@ final class Package {
    * @link https://pear.php.net/rest/p/:packageName/info.xml
    */
   public function getInfo(): Info {
-    $request = $this->requestFactory->createRequest(
+    $content = $this->sendRequest(
       'GET',
       sprintf(
         '%s/rest/p/%s/info.xml',
@@ -69,19 +57,8 @@ final class Package {
         $this->packageName
       )
     );
-    $response = $this->httpClient->sendRequest($request);
-    if ($response->getStatusCode() !== 200) {
-      throw new RuntimeException(
-        $response->getReasonPhrase() ?? sprintf('Server Response Status Code: %d', $response->getStatusCode())
-      );
-    }
 
-    $content = $response->getBody()->getContents();
-    if ($content === '') {
-      throw new RuntimeException('Response body is empty');
-    }
-
-    return new Info($this->parseXml($content));
+    return new Info(new SimpleXMLElement($content));
   }
 
   /**
@@ -91,7 +68,7 @@ final class Package {
    * @link https://pear.php.net/rest/r/:packageName/allreleases.xml
    */
   public function getReleaseList(): ReleaseList {
-    $request = $this->requestFactory->createRequest(
+    $content = $this->sendRequest(
       'GET',
       sprintf(
         '%s/rest/r/%s/allreleases.xml',
@@ -99,26 +76,15 @@ final class Package {
         $this->packageName
       )
     );
-    $response = $this->httpClient->sendRequest($request);
-    if ($response->getStatusCode() !== 200) {
-      throw new RuntimeException(
-        $response->getReasonPhrase() ?? sprintf('Server Response Status Code: %d', $response->getStatusCode())
-      );
-    }
 
-    $content = $response->getBody()->getContents();
-    if ($content === '') {
-      throw new RuntimeException('Response body is empty');
-    }
-
-    return new ReleaseList($this->parseXml($content));
+    return new ReleaseList(new SimpleXMLElement($content));
   }
 
   /**
    * Returns the latest version number
    */
   public function getLatestVersion(): string {
-    $request = $this->requestFactory->createRequest(
+    return $this->sendRequest(
       'GET',
       sprintf(
         '%s/rest/r/%s/latest.txt',
@@ -126,25 +92,70 @@ final class Package {
         $this->packageName
       )
     );
-    $response = $this->httpClient->sendRequest($request);
-    if ($response->getStatusCode() !== 200) {
-      throw new RuntimeException(
-        $response->getReasonPhrase() ?? sprintf('Server Response Status Code: %d', $response->getStatusCode())
-      );
-    }
+  }
 
-    $content = $response->getBody()->getContents();
-    if ($content === '') {
-      throw new RuntimeException('Response body is empty');
-    }
+  /**
+   * Returns the latest stable version number
+   */
+  public function getStableVersion(): string {
+    return $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/rest/r/%s/stable.txt',
+        $this->channel->getUrl(),
+        $this->packageName
+      )
+    );
+  }
 
-    return $content;
+  /**
+   * Returns the latest beta version number
+   */
+  public function getBetaVersion(): string {
+    return $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/rest/r/%s/beta.txt',
+        $this->channel->getUrl(),
+        $this->packageName
+      )
+    );
+  }
+
+  /**
+   * Returns the latest alpha version number
+   */
+  public function getAlphaVersion(): string {
+    return $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/rest/r/%s/alpha.txt',
+        $this->channel->getUrl(),
+        $this->packageName
+      )
+    );
   }
 
   /**
    * Selects a specific release for release related operations
    */
   public function at(string $releaseNumber): Release {
+    // "magic" version numbers
+    switch ($releaseNumber) {
+      case 'latest':
+        $releaseNumber = $this->getLatestVersion();
+        break;
+      case 'stable':
+        $releaseNumber = $this->getStableVersion();
+        break;
+      case 'beta':
+        $releaseNumber = $this->getBetaVersion();
+        break;
+      case 'alpha':
+        $releaseNumber = $this->getAlphaVersion();
+        break;
+    }
+
     return new Release(
       $this->channel,
       $this->httpClient,

@@ -46,7 +46,7 @@ final class ReleaseList implements Countable, Iterator {
   }
 
   public function key(): int {
-    return key($this->list);
+    return (int)key($this->list);
   }
 
   public function next(): void {

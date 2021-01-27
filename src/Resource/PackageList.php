@@ -33,11 +33,11 @@ final class PackageList implements Countable, Iterator {
   }
 
   public function current(): string {
-    return current($this->list);
+    return (string)current($this->list);
   }
 
   public function key(): int {
-    return key($this->list);
+    return (int)key($this->list);
   }
 
   public function next(): void {

@@ -6,7 +6,7 @@ namespace Pickling\Test\Resource\Package;
 use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
-use Pickling\Channel\Pecl;
+use Pickling\Channel\PeclChannel;
 use Pickling\Resource\Package\Release;
 use Pickling\Resource\Package\Release\Info;
 use Pickling\Resource\Package\Release\Manifest;
@@ -22,7 +22,7 @@ final class ReleaseTest extends TestCase {
     $this->httpClient = new MockClient();
     $this->psr17Factory = new Psr17Factory();
     $this->release = new Release(
-      new Pecl(),
+      new PeclChannel(),
       $this->httpClient,
       $this->psr17Factory,
       $this->psr17Factory,
@@ -36,27 +36,6 @@ final class ReleaseTest extends TestCase {
     $this->assertSame('0.0.0', $this->release->getNumber());
   }
 
-  public function testGetManifestWithResponseError(): void {
-    $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(500);
-    $this->httpClient->addResponse($response);
-
-    $this->expectException(RuntimeException::class);
-    $this->expectExceptionMessage('Server Response Status Code: 500');
-    $this->release->getManifest();
-  }
-
-  public function testGetManifestWithEmptyResponseBody(): void {
-    $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStream(''));
-    $this->httpClient->addResponse($response);
-
-    $this->expectException(RuntimeException::class);
-    $this->expectExceptionMessage('Response body is empty');
-    $this->release->getManifest();
-  }
-
   public function testGetManifest(): void {
     $response = $this->createMock(ResponseInterface::class);
     $response->method('getStatusCode')->willReturn(200);
@@ -64,27 +43,6 @@ final class ReleaseTest extends TestCase {
     $this->httpClient->addResponse($response);
 
     $this->assertInstanceOf(Manifest::class, $this->release->getManifest());
-  }
-
-  public function testGetInfoWithResponseError(): void {
-    $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(500);
-    $this->httpClient->addResponse($response);
-
-    $this->expectException(RuntimeException::class);
-    $this->expectExceptionMessage('Server Response Status Code: 500');
-    $this->release->getInfo();
-  }
-
-  public function testGetInfoWithEmptyResponseBody(): void {
-    $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStream(''));
-    $this->httpClient->addResponse($response);
-
-    $this->expectException(RuntimeException::class);
-    $this->expectExceptionMessage('Response body is empty');
-    $this->release->getInfo();
   }
 
   public function testGetInfo(): void {

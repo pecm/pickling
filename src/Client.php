@@ -6,7 +6,7 @@ namespace Pickling;
 use Pickling\Channel\ChannelInterface;
 use Pickling\Resource\Package;
 use Pickling\Resource\PackageList;
-use Pickling\Traits\XmlParser;
+use Pickling\Traits\HttpRequest;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -14,24 +14,12 @@ use RuntimeException;
 use SimpleXMLElement;
 
 final class Client {
-  use XmlParser;
+  use HttpRequest;
 
   /**
    * @var \Pickling\Channel\ChannelInterface
    */
   private ChannelInterface $channel;
-  /**
-   * @var \Psr\Http\Client\ClientInterface
-   */
-  private ClientInterface $httpClient;
-  /**
-   * @var \Psr\Http\Message\RequestFactoryInterface
-   */
-  private RequestFactoryInterface $requestFactory;
-  /**
-   * @var \Psr\Http\Message\StreamFactoryInterface
-   */
-  private StreamFactoryInterface $streamFactory;
 
   public function __construct(
     ChannelInterface $channel,
@@ -52,26 +40,15 @@ final class Client {
    * @link https://pear.php.net/rest/p/packages.xml
    */
   public function getPackageList(): PackageList {
-    $request = $this->requestFactory->createRequest(
+    $content = $this->sendRequest(
       'GET',
       sprintf(
         '%s/rest/p/packages.xml',
         $this->channel->getUrl()
       )
     );
-    $response = $this->httpClient->sendRequest($request);
-    if ($response->getStatusCode() !== 200) {
-      throw new RuntimeException(
-        $response->getReasonPhrase() ?? sprintf('Server Response Status Code: %d', $response->getStatusCode())
-      );
-    }
 
-    $content = $response->getBody()->getContents();
-    if ($content === '') {
-      throw new RuntimeException('Response body is empty');
-    }
-
-    return new PackageList($this->parseXml($content));
+    return new PackageList(new SimpleXmlElement($content));
   }
 
   /**

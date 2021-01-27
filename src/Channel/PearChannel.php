@@ -3,6 +3,6 @@ declare(strict_types = 1);
 
 namespace Pickling\Channel;
 
-final class Pear extends AbstractChannel {
+final class PearChannel extends AbstractChannel {
   protected string $url = 'https://pear.php.net';
 }

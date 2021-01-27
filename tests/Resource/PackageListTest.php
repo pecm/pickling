@@ -10,6 +10,7 @@ use SimpleXMLElement;
 final class PackageListTest extends TestCase {
   public function testPropertyGetters(): void {
     $content = file_get_contents(__DIR__ . '/../Fixtures/packages.xml');
+    $this->assertNotEmpty($content);
     $xml = new SimpleXMLElement($content);
 
     $releaseList = new PackageList($xml);
