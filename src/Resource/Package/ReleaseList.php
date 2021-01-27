@@ -38,19 +38,19 @@ final class ReleaseList implements ArrayAccess, Countable, Iterator {
     return $this->channel;
   }
 
-  public function offsetExists(mixed $offset): bool {
+  public function offsetExists($offset): bool {
     return isset($this->list[$offset]);
   }
 
-  public function offsetGet(mixed $offset): ?Version {
+  public function offsetGet($offset): ?Version {
     return isset($this->list[$offset]) ? $this->list[$offset] : null;
   }
 
-  public function offsetSet(mixed $offset, mixed $value): void {
+  public function offsetSet($offset, $value): void {
     // no-op as the package list must be immutable
   }
 
-  public function offsetUnset(mixed $offset): void {
+  public function offsetUnset($offset): void {
     // no-op as the package list must be immutable
   }
 
