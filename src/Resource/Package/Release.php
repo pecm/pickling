@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Pickling\Resource\Package;
 
 use Pickling\Channel\ChannelInterface;
+use Pickling\Resource\Package\Release\Dependencies;
 use Pickling\Resource\Package\Release\Info;
 use Pickling\Resource\Package\Release\Manifest;
 use Pickling\Traits\HttpRequest;
@@ -85,5 +86,25 @@ final class Release {
     );
 
     return new Info(new SimpleXMLElement($content));
+  }
+
+  /**
+   * Returns the release dependencies
+   *
+   * @link https://pecl.php.net/rest/r/:packageName/deps.:version.txt
+   * @link https://pear.php.net/rest/r/:packageName/deps.:version.txt
+   */
+  public function getDependencies(): Dependencies {
+    $content = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/rest/r/%s/deps.%s.txt',
+        $this->channel->getUrl(),
+        $this->packageName,
+        $this->releaseNumber
+      )
+    );
+
+    return new Dependencies($content);
   }
 }

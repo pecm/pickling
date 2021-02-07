@@ -82,6 +82,9 @@ final class Package {
 
   /**
    * Returns the latest version number
+   *
+   * @link https://pecl.php.net/rest/r/:packageName/latest.txt
+   * @link https://pear.php.net/rest/r/:packageName/latest.txt
    */
   public function getLatestVersion(): string {
     return $this->sendRequest(
@@ -96,6 +99,9 @@ final class Package {
 
   /**
    * Returns the latest stable version number
+   *
+   * @link https://pecl.php.net/rest/r/:packageName/stable.txt
+   * @link https://pear.php.net/rest/r/:packageName/stable.txt
    */
   public function getStableVersion(): string {
     return $this->sendRequest(
@@ -110,6 +116,9 @@ final class Package {
 
   /**
    * Returns the latest beta version number
+   *
+   * @link https://pecl.php.net/rest/r/:packageName/beta.txt
+   * @link https://pear.php.net/rest/r/:packageName/beta.txt
    */
   public function getBetaVersion(): string {
     return $this->sendRequest(
@@ -124,6 +133,9 @@ final class Package {
 
   /**
    * Returns the latest alpha version number
+   *
+   * @link https://pecl.php.net/rest/r/:packageName/alpha.txt
+   * @link https://pear.php.net/rest/r/:packageName/alpha.txt
    */
   public function getAlphaVersion(): string {
     return $this->sendRequest(
