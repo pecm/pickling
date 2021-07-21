@@ -1,4 +1,4 @@
-# Pickling
+# Pickling [![Maintainability](https://api.codeclimate.com/v1/badges/59811840be37c5b2e444/maintainability)](https://codeclimate.com/github/pecm/pickling/maintainability) [![Total Downloads](https://poser.pugx.org/pecm/pickling/downloads)](//packagist.org/packages/pecm/pickling)
 
 Pickling is a simple yet powerful client for [PHP Extension Community Library](https://pecl.php.net/) and [PHP Extension
 and Application Repository](https://pear.php.net/) REST APIs.
