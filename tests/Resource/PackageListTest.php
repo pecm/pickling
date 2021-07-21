@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Pickling\Test\Pecl;
+namespace Pickling\Test\Resource;
 
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\PackageList;

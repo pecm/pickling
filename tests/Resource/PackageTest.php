@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Pickling\Test\Pecl;
+namespace Pickling\Test\Resource;
 
 use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
