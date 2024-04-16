@@ -23,7 +23,11 @@
   "config": {
     "optimize-autoloader": true,
     "sort-packages": true,
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "infection/extension-installer": true,
+      "php-http/discovery": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -34,7 +38,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": "^8.1",
     "php-http/discovery": "^1.13",
     "psr/http-client": "^1.0",
     "psr/http-client-implementation": "^1.0",
