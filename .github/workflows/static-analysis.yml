@@ -20,7 +20,7 @@ jobs:
     - name: Setup PHP with PECL extension
       uses: shivammathur/setup-php@2.12.0
       with:
-        php-version: 8.0
+        php-version: 8.1
         tools: composer:v2
         coverage: none
 
@@ -35,8 +35,8 @@ jobs:
       uses: actions/cache@v2.1.6
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: phpstan-linux-php-8.0-${{ hashFiles('**/composer.lock') }}
-        restore-keys: phpstan-linux-php-8.0-
+        key: phpstan-linux-php-8.1-${{ hashFiles('**/composer.lock') }}
+        restore-keys: phpstan-linux-php-8.1-
 
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
