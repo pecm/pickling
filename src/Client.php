@@ -4,13 +4,17 @@ declare(strict_types = 1);
 namespace Pickling;
 
 use Pickling\Channel\ChannelInterface;
+use Pickling\Resource\CategoryList;
+use Pickling\Resource\Feed\Category as CategoryFeed;
+use Pickling\Resource\Feed\News as LatestFeed;
+use Pickling\Resource\Feed\Package as PackageFeed;
+use Pickling\Resource\Feed\User as UserFeed;
 use Pickling\Resource\Package;
 use Pickling\Resource\PackageList;
 use Pickling\Traits\HttpRequest;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use RuntimeException;
 use SimpleXMLElement;
 
 final class Client {
@@ -31,6 +35,18 @@ final class Client {
     $this->httpClient     = $httpClient;
     $this->requestFactory = $requestFactory;
     $this->streamFactory  = $streamFactory;
+  }
+
+  public function getCategoryList(): CategoryList {
+    $content = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/rest/c/categories.xml',
+        $this->channel->getUrl()
+      )
+    );
+
+    return new CategoryList(new SimpleXMLElement($content));
   }
 
   /**
@@ -62,5 +78,56 @@ final class Client {
       $this->streamFactory,
       $packageName
     );
+  }
+
+  public function getLatestFeed(): LatestFeed {
+    $rss = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/feeds/latest.rss',
+        $this->channel->getUrl()
+      )
+    );
+
+    return new LatestFeed(new SimpleXMLElement($rss));
+  }
+
+  public function getCategoryFeed(string $categoryName): CategoryFeed {
+    $rss = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/feeds/cat_%s.rss',
+        $this->channel->getUrl(),
+        $categoryName
+      )
+    );
+
+    return new CategoryFeed(new SimpleXMLElement($rss), $categoryName);
+  }
+
+  public function getPackageFeed(string $packageName): PackageFeed {
+    $rss = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/feeds/pkg_%s.rss',
+        $this->channel->getUrl(),
+        $packageName
+      )
+    );
+
+    return new PackageFeed(new SimpleXMLElement($rss), $packageName);
+  }
+
+  public function getUserFeed(string $userName): UserFeed {
+    $rss = $this->sendRequest(
+      'GET',
+      sprintf(
+        '%s/feeds/user_%s.rss',
+        $this->channel->getUrl(),
+        $userName
+      )
+    );
+
+    return new UserFeed(new SimpleXMLElement($rss), $userName);
   }
 }

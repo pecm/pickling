@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns="http://purl.org/rss/1.0/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+    <channel rdf:about="https://pecl.php.net">
+        <link>https://pecl.php.net</link>
+        <dc:creator>php-webmaster@lists.php.net</dc:creator>
+        <dc:publisher>php-webmaster@lists.php.net</dc:publisher>
+        <dc:language>en-us</dc:language>
+        <items>
+            <rdf:Seq>
+
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=mcrypt&amp;amp;release=1.0.7"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=PKCS11&amp;amp;release=1.1.2"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=scrypt&amp;amp;release=2.0.1"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=mcrypt&amp;amp;release=1.0.6"/>
+
+            </rdf:Seq>
+        </items>
+
+        <title>PECL: Latest releases in category encryption</title>
+        <description>The latest releases in the category encryption</description>
+    </channel>
+
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=mcrypt&amp;release=1.0.7">
+            <title>mcrypt 1.0.7</title>
+            <link>https://pecl.php.net/package-changelog.php?package=mcrypt&amp;amp;release=1.0.7</link>
+            <description>
+                - Make release to advertise PHP 8.3 support, which it already had.            </description>
+            <dc:date>2023-12-19T10:55:27-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=PKCS11&amp;release=1.1.2">
+            <title>PKCS11 1.1.2</title>
+            <link>https://pecl.php.net/package-changelog.php?package=PKCS11&amp;amp;release=1.1.2</link>
+            <description>
+                - Fixed compatibility with PHP 8.2
+- Fix issue where not specifying the object type in openUri would fail            </description>
+            <dc:date>2023-06-25T17:06:03-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=scrypt&amp;release=2.0.1">
+            <title>scrypt 2.0.1</title>
+            <link>https://pecl.php.net/package-changelog.php?package=scrypt&amp;amp;release=2.0.1</link>
+            <description>
+                Check CPU architecture before attempting to enable SSE (#76)            </description>
+            <dc:date>2023-05-07T13:11:53-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=mcrypt&amp;release=1.0.6">
+            <title>mcrypt 1.0.6</title>
+            <link>https://pecl.php.net/package-changelog.php?package=mcrypt&amp;amp;release=1.0.6</link>
+            <description>
+                - Make release to advertise PHP 8.2 support, which it already had.            </description>
+            <dc:date>2023-02-28T16:43:06-05:00</dc:date>
+        </item>
+
+</rdf:RDF>

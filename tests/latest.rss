@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns="http://purl.org/rss/1.0/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+    <channel rdf:about="https://pecl.php.net">
+        <link>https://pecl.php.net</link>
+        <dc:creator>php-webmaster@lists.php.net</dc:creator>
+        <dc:publisher>php-webmaster@lists.php.net</dc:publisher>
+        <dc:language>en-us</dc:language>
+        <items>
+            <rdf:Seq>
+
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=xdebug&amp;amp;release=3.3.2"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=mongodb&amp;amp;release=1.18.1"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;amp;release=0.99.1"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=gearman&amp;amp;release=2.1.2"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;amp;release=0.99.0"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=protobuf&amp;amp;release=4.26.1"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=mongodb&amp;amp;release=1.18.0"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2beta3"/>
+                                    <rdf:li rdf:resource="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2beta2"/>
+                
+            </rdf:Seq>
+        </items>
+
+        <title>PECL: Latest releases</title>
+        <description>The latest releases in PECL.</description>
+    </channel>
+
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=xdebug&amp;release=3.3.2">
+            <title>xdebug 3.3.2</title>
+            <link>https://pecl.php.net/package-changelog.php?package=xdebug&amp;amp;release=3.3.2</link>
+            <description>
+                Mon, Apr 15, 2024 - Xdebug 3.3.2
+
+= Fixed bugs:
+
+  - Fixed issue #2216: With PHP8.3 and Apache 2.4.58 error_reporting() causing Apache process to hang
+  - Fixed issue #2230: Crash when xdebug and blackfire extensions are active
+  - Fixed issue #2233: High and continuous Apache server CPU use            </description>
+            <dc:date>2024-04-15T13:10:11-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=mongodb&amp;release=1.18.1">
+            <title>mongodb 1.18.1</title>
+            <link>https://pecl.php.net/package-changelog.php?package=mongodb&amp;amp;release=1.18.1</link>
+            <description>
+                ** Task
+   * [PHPC-2369] - Upgrade libmongoc to 1.26.2            </description>
+            <dc:date>2024-04-12T08:45:17-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;release=1.0.2">
+            <title>opentelemetry 1.0.2</title>
+            <link>https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2</link>
+            <description>
+                See https://github.com/open-telemetry/opentelemetry-php-instrumentation/releases/tag/1.0.2            </description>
+            <dc:date>2024-04-11T03:25:31-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;release=0.99.1">
+            <title>datadog_trace 0.99.1</title>
+            <link>https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;amp;release=0.99.1</link>
+            <description>
+                ## Tracer
+
+### Changed
+- revert ?Send spans_created telemetry metric #2577? to fix a memory leak
+
+### Fixed
+- Fix compilation on macOs #2613            </description>
+            <dc:date>2024-04-05T08:30:48-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=gearman&amp;release=2.1.2">
+            <title>gearman 2.1.2</title>
+            <link>https://pecl.php.net/package-changelog.php?package=gearman&amp;amp;release=2.1.2</link>
+            <description>
+                PHP 8 is now supported            </description>
+            <dc:date>2024-04-04T14:54:41-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;release=0.99.0">
+            <title>datadog_trace 0.99.0</title>
+            <link>https://pecl.php.net/package-changelog.php?package=datadog_trace&amp;amp;release=0.99.0</link>
+            <description>
+                ## Tracer
+
+Windows x64 support is officially GA (generally available).
+
+Some performance work has been undertaken to primarily reduce the overhead of telemetry reporting.
+The next release will be version 1.0 and remove deprecated and some unused code and APIs.
+
+### Added
+- Support the [FrankenPHP](https://frankenphp.dev/) SAPIs #2602
+- Add zts support for alpine #2564
+- Swoole Integration #2595
+
+### Changed
+- w3c phase 2: add last parent_id to tracestate #2549
+
+### Fixed
+- Handle relative ext/ paths and test the windows installer #2559
+- Fix exec integration build on PHP 8.4 #2543
+- Fix Orphans not being sampled-out #2550
+- Fix fibers with tracer disabled #2576
+- Update update_span_duration return type #2586
+- Fix #2563: ddtrace overrides php error log permissions #2583
+- Allow hooking an inherited internal constructor #2591
+- Distinguish architectures on windows #2593
+- Fix the ExecIntegration name #2597
+
+### Internal
+- Get rid of some bitwise checking in ddog_shall_log #2539
+- Use faster bincode for ipc #2544
+- Update to use DDOG_CHARSLICE_C and new DDOG_CHARSLICE_C_BARE helpers #2565
+- Slightly Improve OTel Performances #2561
+- Send spans_created telemetry metric #2577
+
+## Profiler
+### Added
+- add [FrankenPHP](https://frankenphp.dev/) to the list of recognised SAPIs #2523
+- enabled allocation profiling for PHP ZTS #2506
+- report PHP build (`nts-ndebug` vs `zts-ndebug`) #2536
+
+### Internal
+- add tests for exception profiling in ZTS builds #2562
+- update to libdatadog v7 #2605
+
+## Application Security Management
+### Added
+- Add DD_API_SECURITY_ENABLED flag #2532
+- Add DD_APPSEC_SCA_ENABLED new configuration variable #2557
+
+### Fixed
+- Make Laravel appsec login success event more accurate #2600
+- Enable appsec by ini only when enable-appsec present #2567
+- Provide path params to appsec #2395            </description>
+            <dc:date>2024-04-03T11:18:19-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=protobuf&amp;release=4.26.1">
+            <title>protobuf 4.26.1</title>
+            <link>https://pecl.php.net/package-changelog.php?package=protobuf&amp;amp;release=4.26.1</link>
+            <description>
+                * See github.com/protocolbuffers/protobuf/releases/tag/v26.1 for release notes.            </description>
+            <dc:date>2024-03-27T20:30:31-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=mongodb&amp;release=1.18.0">
+            <title>mongodb 1.18.0</title>
+            <link>https://pecl.php.net/package-changelog.php?package=mongodb&amp;amp;release=1.18.0</link>
+            <description>
+                ** Task
+    * [PHPC-1956] - Remove disabled __wakeup function for classes that disable serialization
+    * [PHPC-2320] - Remove empty string key replacement logic in json_canonicalize()
+    * [PHPC-2358] - Upgrade libmongocrypt to 1.9.0
+    * [PHPC-2360] - Upgrade libmongoc to 1.26.0
+    * [PHPC-2363] - Upgrade libmongocrypt to 1.9.1
+    * [PHPC-2364] - Upgrade libmongoc to 1.26.1
+    * [PHPC-2366] - Invoke all Drivers Evergreen Tools Scripts with Bash            </description>
+            <dc:date>2024-03-27T15:52:38-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;release=1.0.2beta3">
+            <title>opentelemetry 1.0.2beta3</title>
+            <link>https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2beta3</link>
+            <description>
+                See https://github.com/open-telemetry/opentelemetry-php-instrumentation/releases/tag/1.0.2beta3            </description>
+            <dc:date>2024-03-24T23:20:12-05:00</dc:date>
+        </item>
+            <item rdf:about="https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;release=1.0.2beta2">
+            <title>opentelemetry 1.0.2beta2</title>
+            <link>https://pecl.php.net/package-changelog.php?package=opentelemetry&amp;amp;release=1.0.2beta2</link>
+            <description>
+                See https://github.com/open-telemetry/opentelemetry-php-instrumentation/releases/tag/1.0.2beta2            </description>
+            <dc:date>2024-03-18T09:31:30-05:00</dc:date>
+        </item>
+    
+</rdf:RDF>

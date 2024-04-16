@@ -11,7 +11,6 @@ use Pickling\Traits\HttpRequest;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use RuntimeException;
 use SimpleXMLElement;
 
 final class Package {
