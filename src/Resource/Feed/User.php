@@ -6,11 +6,8 @@ namespace Pickling\Resource\Feed;
 use SimpleXMLElement;
 
 final class User extends News {
-  private string $userName;
-
-  public function __construct(SimpleXMLElement $xml, string $name) {
+  public function __construct(SimpleXMLElement $xml, private readonly string $userName) {
     parent::__construct($xml);
-    $this->userName = $name;
   }
 
   public function getUserName(): string {
