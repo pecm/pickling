@@ -6,11 +6,8 @@ namespace Pickling\Resource\Feed;
 use SimpleXMLElement;
 
 final class Category extends News {
-  private string $categoryName;
-
-  public function __construct(SimpleXMLElement $xml, string $name) {
+  public function __construct(SimpleXMLElement $xml, private readonly string $categoryName) {
     parent::__construct($xml);
-    $this->categoryName = $name;
   }
 
   public function getCategoryName(): string {
