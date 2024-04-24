@@ -23,7 +23,7 @@ jobs:
     - name: Setup PHP with PECL extension
       uses: shivammathur/setup-php@efffd0e4f2504f936fcfe3b69293d31ce0e2fd7a # v2.30.3
       with:
-        php-version: 8.1
+        php-version: 8.3
         tools: composer:v2
         coverage: none
 
