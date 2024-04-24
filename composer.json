@@ -68,9 +68,9 @@
     "lint": "vendor/bin/parallel-lint --exclude vendor .",
     "phpcs": "vendor/bin/phpcs --standard=ruleset.xml src/ tests/",
     "phpstan": "vendor/bin/phpstan analyse --level=max --autoload-file=vendor/autoload.php src/",
-    "phpunit": "vendor/bin/phpunit ./tests/ --coverage-html=./report/coverage/ --whitelist=./src/ --testdox-html=./report/testdox.html --disallow-test-output --process-isolation",
+    "phpunit": "vendor/bin/phpunit ./tests/ --coverage-html=./report/coverage/ --testdox-html=./report/testdox.html --disallow-test-output --process-isolation",
     "test-ci": "vendor/bin/phpunit ./tests/ --disallow-test-output --process-isolation",
-    "test-coverage": "vendor/bin/phpunit ./tests/ --whitelist=./src/ --coverage-clover=clover.xml",
+    "test-coverage": "vendor/bin/phpunit ./tests/ --coverage-clover=clover.xml",
     "test": [
       "@infection",
       "@lint",
