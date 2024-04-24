@@ -3,14 +3,13 @@ declare(strict_types = 1);
 
 namespace Pickling;
 
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
 use Pickling\Channel\ChannelInterface;
 use Pickling\Channel\PearChannel;
 use Pickling\Channel\PeclChannel;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use PsrDiscovery\Discover;
 
 final class Factory {
   public static function create(
@@ -21,9 +20,9 @@ final class Factory {
   ): Client {
     return new Client(
       $channel,
-      $httpClient ?: Psr18ClientDiscovery::find(),
-      $requestFactory ?: Psr17FactoryDiscovery::findRequestFactory(),
-      $streamFactory ?: Psr17FactoryDiscovery::findStreamFactory()
+      $httpClient ?: Discover::httpClient(),
+      $requestFactory ?: Discover::httpRequestFactory(),
+      $streamFactory ?: Discover::httpStreamFactory()
     );
   }
   public static function createPear(
