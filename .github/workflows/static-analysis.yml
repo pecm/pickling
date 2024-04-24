@@ -4,9 +4,11 @@ on:
   push:
     paths-ignore:
       - 'doc/**'
+      - '.github/**'
   pull_request:
     paths-ignore:
       - 'doc/**'
+      - '.github/**'
 
 jobs:
   phpstan:
@@ -15,32 +17,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4.1.1
+    - name: Repository checkout
+      uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
 
     - name: Setup PHP with PECL extension
-      uses: shivammathur/setup-php@2.30.2
+      uses: shivammathur/setup-php@efffd0e4f2504f936fcfe3b69293d31ce0e2fd7a # v2.30.3
       with:
         php-version: 8.1
         tools: composer:v2
         coverage: none
 
     - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Get composer cache directory
-      id: composer-cache
-      run: echo 'dir=' . $(composer config cache-files-dir) >> $GITHUB_OUTPUT
-
-    - name: Cache Composer packages
-      uses: actions/cache@v4.0.2
-      with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: phpstan-linux-php-8.1-${{ hashFiles('**/composer.lock') }}
-        restore-keys: phpstan-linux-php-8.1-
+      run: composer validate --strict
 
     - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer update --prefer-stable --ignore-platform-req=php --no-progress --no-interaction
+      uses: ramsey/composer-install@57532f8be5bda426838819c5ee9afb8af389d51a # v3.0.0
+      with:
+        dependency-versions: lowest
 
     - name: Run PHPStan
       run: composer run-script phpstan -- --no-progress
