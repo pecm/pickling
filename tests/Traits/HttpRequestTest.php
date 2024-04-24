@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Traits;
 
-use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Pickling\Traits\HttpRequest;
@@ -11,6 +10,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use PsrMock\Psr18\Client as MockClient;
 use RuntimeException;
 use stdClass;
 
@@ -48,19 +48,28 @@ final class HttpRequestTest extends TestCase {
 
   public function testSendRequestWithResponseError(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(500);
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(500);
+    $response
+      ->method('getReasonPhrase')
+      ->willReturn('Internal Server Error');
+    $this->httpClient->addResponse('GET', 'http://localhost/', $response);
 
     $this->expectException(RuntimeException::class);
-    $this->expectExceptionMessage('Server Response Status Code: 500');
+    $this->expectExceptionMessage('Internal Server Error');
     $this->trait->testRequest();
   }
 
   public function testSendRequestWithEmptyResponseBody(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStream(''));
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(200);
+    $response
+      ->method('getBody')
+      ->willReturn($this->psr17Factory->createStream(''));
+    $this->httpClient->addResponse('GET', 'http://localhost/', $response);
 
     $this->expectException(RuntimeException::class);
     $this->expectExceptionMessage('Response body is empty');

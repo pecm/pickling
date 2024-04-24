@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Package;
 
-use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Pickling\Channel\PeclChannel;
@@ -11,7 +10,7 @@ use Pickling\Resource\Package\Release;
 use Pickling\Resource\Package\Release\Info;
 use Pickling\Resource\Package\Release\Manifest;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
+use PsrMock\Psr18\Client as MockClient;
 
 final class ReleaseTest extends TestCase {
   private MockClient $httpClient;
@@ -38,18 +37,28 @@ final class ReleaseTest extends TestCase {
 
   public function testGetManifest(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/../../Fixtures/mongo/package.1.6.16.xml'));
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(200);
+    $response
+      ->method('getBody')
+      ->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/../../Fixtures/mongo/package.1.6.16.xml'));
+
+    $this->httpClient->addResponse('GET', 'https://pecl.php.net/rest/r/mongo/package.0.0.0.xml', $response);
 
     $this->assertInstanceOf(Manifest::class, $this->release->getManifest());
   }
 
   public function testGetInfo(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/../../Fixtures/mongo/1.6.16.xml'));
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(200);
+    $response
+      ->method('getBody')
+      ->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/../../Fixtures/mongo/1.6.16.xml'));
+
+    $this->httpClient->addResponse('GET', 'https://pecl.php.net/rest/r/mongo/0.0.0.xml', $response);
 
     $this->assertInstanceOf(Info::class, $this->release->getInfo());
   }

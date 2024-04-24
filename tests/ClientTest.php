@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Pickling\Test;
 
-use Http\Mock\Client as MockClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Pickling\Channel\PeclChannel;
@@ -12,6 +11,7 @@ use Pickling\Resource\CategoryList;
 use Pickling\Resource\Package;
 use Pickling\Resource\PackageList;
 use Psr\Http\Message\ResponseInterface;
+use PsrMock\Psr18\Client as MockClient;
 
 final class ClientTest extends TestCase {
   private MockClient $httpClient;
@@ -26,18 +26,26 @@ final class ClientTest extends TestCase {
 
   public function testGetCategoryList(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/Fixtures/categories.xml'));
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(200);
+    $response
+      ->method('getBody')
+      ->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/Fixtures/categories.xml'));
+    $this->httpClient->addResponse('GET', 'https://pecl.php.net/rest/c/categories.xml', $response);
 
     $this->assertInstanceOf(CategoryList::class, $this->peclClient->getCategoryList());
   }
 
   public function testGetPackageList(): void {
     $response = $this->createMock(ResponseInterface::class);
-    $response->method('getStatusCode')->willReturn(200);
-    $response->method('getBody')->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/Fixtures/packages.xml'));
-    $this->httpClient->addResponse($response);
+    $response
+      ->method('getStatusCode')
+      ->willReturn(200);
+    $response
+      ->method('getBody')
+      ->willReturn($this->psr17Factory->createStreamFromFile(__DIR__ . '/Fixtures/packages.xml'));
+    $this->httpClient->addResponse('GET', 'https://pecl.php.net/rest/p/packages.xml', $response);
 
     $this->assertInstanceOf(PackageList::class, $this->peclClient->getPackageList());
   }
