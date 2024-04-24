@@ -45,21 +45,19 @@
     "psr/http-factory": "^1.0",
     "psr/http-factory-implementation": "^1.0",
     "psr/http-message": "^1.0",
-    "psr/http-message-implementation": "^1.0",
-    "ramsey/collection": "^1.1"
+    "psr/http-message-implementation": "^1.0"
   },
   "require-dev": {
-    "infection/infection": "^0.23.0",
+    "infection/infection": "^0.28",
     "nyholm/psr7": "^1.3",
     "php-http/mock-client": "^1.4",
     "php-http/socket-client": "^2.1",
     "php-parallel-lint/php-parallel-lint": "^1.3",
-    "phpstan/phpstan": "^0.12.90",
-    "phpunit/phpunit": "^9.5",
-    "psy/psysh": "^0.10.8",
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^11.1",
+    "psy/psysh": "^0.12",
     "roave/security-advisories": "dev-latest",
-    "squizlabs/php_codesniffer": "^3.6",
-    "vimeo/psalm": "^4.8"
+    "squizlabs/php_codesniffer": "^3.6"
   },
   "suggest": {
     "nyholm/psr7": "A fast PHP7 implementation of PSR-7",
@@ -72,7 +70,6 @@
     "phpcs": "vendor/bin/phpcs --standard=ruleset.xml src/ tests/",
     "phpstan": "vendor/bin/phpstan analyse --level=max --autoload-file=vendor/autoload.php src/",
     "phpunit": "vendor/bin/phpunit ./tests/ --coverage-html=./report/coverage/ --whitelist=./src/ --testdox-html=./report/testdox.html --disallow-test-output --process-isolation",
-    "psalm": "vendor/bin/psalm --taint-analysis",
     "test-ci": "vendor/bin/phpunit ./tests/ --disallow-test-output --process-isolation",
     "test-coverage": "vendor/bin/phpunit ./tests/ --whitelist=./src/ --coverage-clover=clover.xml",
     "test": [
@@ -91,7 +88,6 @@
     "phpcs": "Runs coding style checking",
     "phpstan": "Runs complete codebase static analysis",
     "phpunit": "Runs library test suite",
-    "psalm": "Runs complete codebase taint analysis",
     "test-ci": "Runs library test suite (for continuous integration)",
     "test-coverage": "Runs test-coverage analysis",
     "test": "Runs all tests"

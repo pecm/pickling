@@ -3,14 +3,13 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Package\Release;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Package\Release\Info;
 use SimpleXMLElement;
 
 final class InfoTest extends TestCase {
-  /**
-   * @dataProvider propertyGettersDataProvider
-   */
+  #[DataProvider('propertyGettersDataProvider')]
   public function testPropertyGetters(string $file, array $properties): void {
     $content = file_get_contents(__DIR__ . $file);
     $xml = new SimpleXMLElement($content);
@@ -31,7 +30,7 @@ final class InfoTest extends TestCase {
     $this->assertSame($properties[12], $info->getPackageLink());
   }
 
-  public function propertyGettersDataProvider(): array {
+  public static function propertyGettersDataProvider(): array {
     return [
       [
         '/../../../Fixtures/amqp/1.10.2.xml',

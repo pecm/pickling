@@ -3,15 +3,14 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Feed;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Feed\Item;
 use Pickling\Resource\Feed\Package;
 use SimpleXMLElement;
 
 final class PackageFeedTest extends TestCase {
-  /**
-   * @dataProvider propertyGettersDataProvider
-   */
+  #[DataProvider('propertyGettersDataProvider')]
   public function testPropertyGetters(string $file, array $properties): void {
     $content = file_get_contents(__DIR__ . $file);
     $xml = new SimpleXMLElement($content);
@@ -42,7 +41,7 @@ final class PackageFeedTest extends TestCase {
     $this->assertFalse(isset($packageList[count($packageList)]));
   }
 
-  public function propertyGettersDataProvider(): array {
+  public static function propertyGettersDataProvider(): array {
     return [
       [
         '/../../Fixtures/amqp/pkg_amqp.rss',
