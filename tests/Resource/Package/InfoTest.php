@@ -3,11 +3,13 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Package;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Package\Info;
 use SimpleXMLElement;
 
+#[CoversClass(Info::class)]
 final class InfoTest extends TestCase {
   #[DataProvider('propertyGettersDataProvider')]
   public function testPropertyGetters(string $file, array $properties): void {
@@ -30,7 +32,7 @@ final class InfoTest extends TestCase {
 
   public static function propertyGettersDataProvider(): array {
     return [
-      [
+      'amqp' => [
         '/../../Fixtures/amqp/info.xml',
         [
           'amqp',
@@ -46,7 +48,7 @@ final class InfoTest extends TestCase {
           ''
         ]
       ],
-      [
+      'mongo' => [
         '/../../Fixtures/mongo/info.xml',
         [
           'mongo',
@@ -62,7 +64,7 @@ final class InfoTest extends TestCase {
           ''
         ]
       ],
-      [
+      'mongodb' => [
         '/../../Fixtures/mongodb/info.xml',
         [
           'mongodb',
@@ -82,7 +84,7 @@ EOL,
           ''
         ]
       ],
-      [
+      'parallel' => [
         '/../../Fixtures/parallel/info.xml',
         [
           'parallel',

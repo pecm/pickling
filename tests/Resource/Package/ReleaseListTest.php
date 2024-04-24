@@ -3,12 +3,14 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Package;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Package\Release\Version;
 use Pickling\Resource\Package\ReleaseList;
 use SimpleXMLElement;
 
+#[CoversClass(ReleaseList::class)]
 final class ReleaseListTest extends TestCase {
   #[DataProvider('propertyGettersDataProvider')]
   public function testPropertyGetters(string $file, array $properties): void {

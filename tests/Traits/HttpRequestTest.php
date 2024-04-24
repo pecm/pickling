@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Pickling\Test\Traits;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Pickling\Traits\HttpRequest;
 use Psr\Http\Client\ClientInterface;
@@ -14,6 +15,7 @@ use PsrMock\Psr18\Client as MockClient;
 use RuntimeException;
 use stdClass;
 
+#[CoversClass(HttpRequest::class)]
 final class HttpRequestTest extends TestCase {
   private MockClient $httpClient;
   private Psr17Factory $psr17Factory;

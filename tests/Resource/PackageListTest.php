@@ -3,10 +3,12 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\PackageList;
 use SimpleXMLElement;
 
+#[CoversClass(PackageList::class)]
 final class PackageListTest extends TestCase {
   public function testPropertyGetters(): void {
     $content = file_get_contents(__DIR__ . '/../Fixtures/packages.xml');

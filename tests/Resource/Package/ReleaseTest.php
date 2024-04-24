@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Pickling\Test\Resource\Package;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Pickling\Channel\PeclChannel;
 use Pickling\Resource\Package\Release;
@@ -12,6 +13,7 @@ use Pickling\Resource\Package\Release\Manifest;
 use Psr\Http\Message\ResponseInterface;
 use PsrMock\Psr18\Client as MockClient;
 
+#[CoversClass(Release::class)]
 final class ReleaseTest extends TestCase {
   private MockClient $httpClient;
   private Psr17Factory $psr17Factory;

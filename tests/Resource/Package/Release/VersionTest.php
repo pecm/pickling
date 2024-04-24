@@ -3,10 +3,12 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Package\Release;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Package\Release\Version;
 use SimpleXMLElement;
 
+#[CoversClass(Version::class)]
 final class VersionTest extends TestCase {
   public function testPropertyGetters(): void {
     $version = new Version(

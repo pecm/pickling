@@ -3,12 +3,14 @@ declare(strict_types = 1);
 
 namespace Pickling\Test\Resource\Feed;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Pickling\Resource\Feed\Item;
 use Pickling\Resource\Feed\Package;
 use SimpleXMLElement;
 
+#[CoversClass(Package::class)]
 final class PackageFeedTest extends TestCase {
   #[DataProvider('propertyGettersDataProvider')]
   public function testPropertyGetters(string $file, array $properties): void {

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Pickling\Test;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Pickling\Channel\PeclChannel;
 use Pickling\Client;
@@ -13,6 +14,7 @@ use Pickling\Resource\PackageList;
 use Psr\Http\Message\ResponseInterface;
 use PsrMock\Psr18\Client as MockClient;
 
+#[CoversClass(Client::class)]
 final class ClientTest extends TestCase {
   private MockClient $httpClient;
   private Psr17Factory $psr17Factory;
