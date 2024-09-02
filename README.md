@@ -46,7 +46,7 @@ $pearClient = Pickling\Factory::createPear();
 // pecl client
 $peclClient = new Pickling\Client(
   // a class that implements Pickling\Channel\ChannelInterface
-  new Pickling\Channel\Pecl(),
+  new Pickling\Channel\PeclChannel(),
   // a class that implements Psr\Http\Client\ClientInterface
   new Http\Client\Socket\Client(),
   // a class that implements Psr\Http\Message\RequestFactoryInterface
@@ -58,7 +58,7 @@ $peclClient = new Pickling\Client(
 // pear client
 $pearClient = new Pickling\Client(
   // a class that implements Pickling\Channel\ChannelInterface
-  new Pickling\Channel\Pear(),
+  new Pickling\Channel\PearChannel(),
   // a class that implements Psr\Http\Client\ClientInterface
   new Http\Client\Socket\Client(),
   // a class that implements Psr\Http\Message\RequestFactoryInterface
