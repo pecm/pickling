@@ -19,11 +19,11 @@ To add Pickling to composer:
 composer require pecm/pickling
 ```
 
-A general suggestion for HTTP Client, using [php-http/socket-client](https://packagist.org/packages/php-http/socket-client)
+A general suggestion for HTTP Client, using [kriswallsmith/buzz](https://packagist.org/packages/kriswallsmith/buzz)
 and [nyholm/psr7](https://packagist.org/packages/nyholm/psr7):
 
 ```bash
-composer require php-http/socket-client nyholm/psr7
+composer require kriswallsmith/buzz nyholm/psr7
 ```
 
 ## Usage
